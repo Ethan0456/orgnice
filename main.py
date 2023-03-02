@@ -2,15 +2,17 @@ import sys
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
-class MyHandler(FileSystemEventHandler):
+class Handler(FileSystemEventHandler):
     def on_created(self, event):
         print(f"New file created: {event.src_path}")
 
+directories = sys.argv
+
 observer = Observer()
-observer.schedule(MyHandler(), path='.')
+for dirs in directories:
+    observer.schedule(Handler(), path=dirs)
 observer.start()
 
-directories = sys.argv
 
 try:
     while True:
