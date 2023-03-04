@@ -1,0 +1,49 @@
+dirs:
+  - "/Users/abhijeetsingh/Project-Repos/orgnice/tmp"
+  - "/Users/abhijeetsingh/Project-Repos/orgnice/tmp1"
+
+groups:
+
+  - PDF:
+    - pdf
+
+  - Doc:
+    - doc
+    - odt
+    - rtf
+    - docx
+
+  - Excel:
+    - ods
+    - xls
+    - xlsx
+    - csv
+    - tsv
+    - dif
+
+  - Video:
+    - mp4
+    - avi
+    - wmv
+    - mov
+    - flv
+    - mkv
+
+  - Image:
+    - jpg
+    - jpeg
+    - png
+    - bmp
+    - gif
+    - tif
+    - tiff
+    - webp
+    - svg
+    - ico
+    - psd
+
+  - ignore:
+    - crdownload
+    - partial
+    - part
+    - opdownload
