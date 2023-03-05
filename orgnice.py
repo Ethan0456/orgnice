@@ -32,7 +32,10 @@ class EventHandler(FileSystemEventHandler):
 if __name__ == "__main__":
     # Get Directories argument list
     args = sys.argv
-    args.remove("main.py")
+    print(args)
+    if len(args) == 1:
+        print("Resorting to default config...")
+        config = readConfig.readConfigFile(os.path.expandvars("$HOME/.config/orgnice/config.yml"))
 
     # check for flags
     # types
@@ -54,6 +57,10 @@ if __name__ == "__main__":
 
     dirs = config["dirs"]
     groups = config["groups"]
+
+    if (dirs is None):
+        print("Specify atleast one 'dirs' key value in config !")
+        sys.exit()
     
     # For running the program only once
     if (options["once"]):
@@ -70,11 +77,11 @@ if __name__ == "__main__":
     else:
         observer = Observer()
         for dir in config["dirs"]:
-            observer.schedule(EventHandler(), path=dir)
+            observer.schedule(EventHandler(), path=os.path.expandvars(dir))
         observer.start()
         try:
             while True:
-                time.sleep(5)
+                time.sleep(1)
         except KeyboardInterrupt:
             observer.stop()
         observer.join()
