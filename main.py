@@ -1,14 +1,23 @@
+import time
 import sys
 import os
-import ReadConfig
+import readConfig
 import move
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
+from watchdog.events import PatternMatchingEventHandler
 
 # EventHandler
 class EventHandler(FileSystemEventHandler):
     def __init__(self):
         self.skip_next = False
+    
+    # Check if file size has changed in the last 5 seconds
+    def should_ignore(self, filename):
+        old_size = self._file_sizes.get(filename, None)
+        new_size = os.path.getsize(filename)
+        self._file_sizes[filename] = new_size
+        return old_size is not None and old_size != new_size and time.time() - self._last_mod_time[filename] < 5
 
     # to handle new files
     def on_created(self, event):
@@ -48,7 +57,7 @@ if __name__ == "__main__":
     if ("-c" in args):
         options["config"] = args[args.index("-c")+1]
         args.remove("-c")
-        config = ReadConfig.readConfigFile(options["config"])
+        config = readConfig.readConfigFile(options["config"])
 
     dirs = config["dirs"]
     groups = config["groups"]
@@ -71,7 +80,7 @@ if __name__ == "__main__":
         observer.start()
         try:
             while True:
-                pass
+                time.sleep(1)
         except KeyboardInterrupt:
             observer.stop()
         observer.join()
