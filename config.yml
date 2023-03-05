@@ -1,5 +1,6 @@
 dirs:
-  - "/home/ethan/Downloads"
+  - "$HOME/Downloads"
+  - "$HOME/Documents"
 
 groups:
 
