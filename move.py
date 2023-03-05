@@ -34,7 +34,8 @@ def moveFile(filename, subDir):
     fName = getName(filename)
     fDir = getDir(filename)
 
-    if not os.path.exists(os.path.join(fDir,subDir)):
-        os.mkdir(os.path.join(fDir,subDir))
+    if (fName[0] != "."):
+        if not os.path.exists(os.path.join(fDir, subDir)):
+            os.mkdir(os.path.join(fDir, subDir))
 
-    os.rename(filename, os.path.join(fDir,subDir,fName))
+        os.rename(filename, os.path.join(fDir, subDir, fName))

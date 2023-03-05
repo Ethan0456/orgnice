@@ -12,13 +12,6 @@ class EventHandler(FileSystemEventHandler):
     def __init__(self):
         self.skip_next = False
     
-    # Check if file size has changed in the last 5 seconds
-    def should_ignore(self, filename):
-        old_size = self._file_sizes.get(filename, None)
-        new_size = os.path.getsize(filename)
-        self._file_sizes[filename] = new_size
-        return old_size is not None and old_size != new_size and time.time() - self._last_mod_time[filename] < 5
-
     # to handle new files
     def on_created(self, event):
         print(f"New File Found: {event.src_path}")
@@ -70,7 +63,8 @@ if __name__ == "__main__":
             for file in ls_dir:
                 filename = os.path.join(dir,file)
                 if (os.path.isfile(filename)):
-                    move.decideAndMoveFile(filename, groups)
+                    if (filename[0] != "."):
+                        move.decideAndMoveFile(filename, groups)
 
     # Observer and Scheduler for each directories
     else:
@@ -80,7 +74,7 @@ if __name__ == "__main__":
         observer.start()
         try:
             while True:
-                time.sleep(1)
+                time.sleep(5)
         except KeyboardInterrupt:
             observer.stop()
         observer.join()
