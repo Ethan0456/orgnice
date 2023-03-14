@@ -1,9 +1,10 @@
 # Orgnice
 Orgnice is a Python script that can monitor a specified directory for changes and new files. When a new file is detected, the program creates a folder with the same name as the file's extension and moves the file to that folder. Additionally, the program can take a configuration YAML file in which the user can define common groups for similar types of files. For example, all videos in MP4, MKV, and other formats can be grouped together in a "Video" folder, regardless of their individual extensions. This helps keep your files organized in a more intuitive and meaningful way. You can specify the directory to monitor, the extensions to group, and the common groups in the configuration file. The program runs in the background and requires no interaction, making it an ideal solution for those who need to manage large numbers of files regularly.
 
-* Requirement is Python WatchDog Library
+* Requirement is Python WatchDog Library and PyYAML Library.
 
     `pip3 install watchdog`
+    `pip3 install pyyaml'
 
 Steps:
 
